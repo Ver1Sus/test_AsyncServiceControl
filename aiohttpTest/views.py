@@ -40,11 +40,11 @@ async def switchPost(r):
 	
 	
 	
-print('Asynchronous:')
-ioloop = asyncio.get_event_loop()
-tasks = [ioloop.create_task(switchPost(1))]
-ioloop.run_until_complete(asyncio.wait(tasks))
-ioloop.close()
+# print('Asynchronous:')
+# ioloop = asyncio.get_event_loop()
+# tasks = [ioloop.create_task(switchPost(1))]
+# ioloop.run_until_complete(asyncio.wait(tasks))
+# ioloop.close()
 	
 	
 	
