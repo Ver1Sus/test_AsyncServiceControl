@@ -5,3 +5,26 @@ body{
 h1{
 	color: azure;
 }
+
+.btn{
+	border: 1px black solid;
+	width: 100px;
+	height: 20px;
+	text-align: center;
+	color: white;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+}
+
+.btnOff{
+	background-color:crimson;
+}
+
+.btnOn{
+	background-color:darkgreen;
+}
+
+.btnRe{
+	background-color:darkgoldenrod;
+}

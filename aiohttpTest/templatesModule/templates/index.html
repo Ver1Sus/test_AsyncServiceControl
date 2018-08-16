@@ -2,5 +2,15 @@
 
 
 {% block content %}
-	<h1>test</h1>
+	<div class="serviceStatusDiv">
+		Status of {{serviceName}} service is: {{ serviceStatus }}
+	</div>
+	
+	
+	
+	<form action="{{ url('switch2') }}" method="POST">
+		<button type="submit" name="serviceSwitch" value="off" class="btnOff bnt">OFF</button>
+		<button type="submit" name="serviceSwitch" value="on"  class="btnOn bnt">ON</button>
+		<button type="submit" name="serviceSwitch" value="restart"  class="btnRe bnt">RE</button>
+	</form>
 {% endblock %}

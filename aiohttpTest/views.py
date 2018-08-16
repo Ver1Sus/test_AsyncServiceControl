@@ -15,20 +15,43 @@ async def index2(request):
 	return {
 			'title':'Service Control Panel',
 			'description':'This is page to control the service',
+			'serviceStatus':serviceControl.getStatus(),
+			'serviceName': serviceControl.serviceName,
 		}
 		
 	
 async def switch(request):
 	button = request.match_info['button']
-	
 	if button == 'on':
 		print('try to start')
 		serviceControl.startService()
 	elif button == 'off':
 		print('try to stop')
 		serviceControl.stopService()
+	elif button == 'restart':
+		print('try to restart')
+		serviceControl.restartService()
 	
 	print (serviceControl.getStatus())
+	return web.HTTPFound('/')
+	
+async def switch2(request):
+	data = await request.post()
+	serviceSwitch = data['serviceSwitch']
+	print(serviceSwitch)
+	
+	if serviceSwitch == 'on':
+		print('try to start')
+		serviceControl.startService()
+	elif serviceSwitch == 'off':
+		print('try to stop')
+		serviceControl.stopService()
+	elif serviceSwitch == 'restart':
+		print('try to restart')
+		serviceControl.restartService()
+	
+	print (serviceControl.getStatus())
+	
 	return web.HTTPFound('/')
 	
 	
