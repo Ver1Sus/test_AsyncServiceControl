@@ -9,12 +9,21 @@ h1{
 .btn{
 	border: 1px black solid;
 	width: 100px;
-	height: 20px;
+	height: 40px;
 	text-align: center;
 	color: white;
 	float: left;
 	padding: 10px;
 	margin: 10px;
+	cursor: pointer;
+}
+
+.btn:hover{
+	color: black;
+}
+
+.btn:active{
+	background-color: gray;
 }
 
 .btnOff{

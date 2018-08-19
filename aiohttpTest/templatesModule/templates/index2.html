@@ -1,4 +1,3 @@
-{% extends "skelet.html" %}
 
 
 {% block content %}
@@ -10,7 +9,7 @@
 	<input type="checkbox" value="On" {{ checked }}>Activate service</input>
 	
 	<form action="{{ url('switch') }}" method="POST">
-		<button type="submit"  name="serviceSwitch" value="off" class="btnOff btn">OFF</button>
+		<button type="submit" disabled name="serviceSwitch" value="off" class="btnOff btn">OFF</button>
 		<button type="submit" name="serviceSwitch" value="on"  class="btnOn btn">ON</button>
 		<button type="submit" name="serviceSwitch" value="restart"  class="btnRe btn">RE</button>
 	</form>

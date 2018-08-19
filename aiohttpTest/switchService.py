@@ -1,26 +1,38 @@
 import subprocess, re
+import asyncio 
 
 class ServiceControl():
 	def __init__(self, serviceName):
 		self.serviceName = serviceName
-		
+
 	def getStatus(self):
-		p = subprocess.Popen(["service", self.serviceName, "status"], stdout=subprocess.PIPE)
-		return self.findStatus(p)
+		return self.findStatus("status")
 
 	def stopService(self):
-		p = subprocess.Popen(["sudo", "service", self.serviceName, "stop"], stdout=subprocess.PIPE)
-		return self.findStatus(p)
+		return self.findStatus("stop")
 		
 	def startService(self):
-		p = subprocess.Popen(["sudo", "service", self.serviceName, "start"])
-		return self.findStatus(p)
+		return self.findStatus("start")
 		
 	def restartService(self):
-		p = subprocess.Popen(["sudo", "service", self.serviceName, "restart"])
-		return self.findStatus(p)
+		return self.findStatus("restart")
 		
-	def findStatus(self, process):
-		out, err = process.communicate()
+	def findStatus(self, command):
+		p = subprocess.Popen(["sudo", "service", self.serviceName, command], stdout=subprocess.PIPE)
+		out, err = p.communicate()
 		res = re.findall(r'Active:.(\w*)', str(out))
 		return res
+		
+	async def startService2(self):
+		await self.runShell("start")
+		# p = await asyncio.create_subprocess_shell("sudo service {} start".format(self.serviceName), stdout=asyncio.subprocess.PIPE)
+		
+	async def stopService2(self):
+		await self.runShell("stop")
+		
+	async def restartService2(self):
+		await self.runShell("restart")
+		
+	async def runShell(self, command):
+		await asyncio.create_subprocess_shell("sudo service {} {}".format(self.serviceName, command), stdout=asyncio.subprocess.PIPE)
+		

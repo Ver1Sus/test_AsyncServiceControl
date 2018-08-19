@@ -6,6 +6,8 @@ from switchService import ServiceControl
 serviceControl = ServiceControl("python_telegramCheckInIvcBot")
 serviceControl = ServiceControl("bluetooth")
 
+ioloop = asyncio.get_event_loop()
+
 async def index(request):
 	return web.Response(text='Hello world!')
 	
@@ -15,27 +17,15 @@ async def index2(request):
 	return {
 			'title':'Service Control Panel',
 			'description':'This is page to control the service',
-			'serviceStatus':serviceControl.getStatus(),
+			'serviceStatus':serviceControl.findStatus("status"),
 			'serviceName': serviceControl.serviceName,
+			'checked':'',
 		}
 		
 	
+	
 async def switch(request):
-	button = request.match_info['button']
-	if button == 'on':
-		print('try to start')
-		serviceControl.startService()
-	elif button == 'off':
-		print('try to stop')
-		serviceControl.stopService()
-	elif button == 'restart':
-		print('try to restart')
-		serviceControl.restartService()
-	
-	print (serviceControl.getStatus())
-	return web.HTTPFound('/')
-	
-async def switch2(request):
+	#button = request.match_info['button']
 	data = await request.post()
 	serviceSwitch = data['serviceSwitch']
 	print(serviceSwitch)
@@ -53,6 +43,32 @@ async def switch2(request):
 	print (serviceControl.getStatus())
 	
 	return web.HTTPFound('/')
+	
+async def switch2(request):
+	#button = request.match_info['button']
+	data = await request.post()
+	serviceSwitch = data['serviceSwitch']
+	print(serviceSwitch)	
+		
+	if serviceSwitch == 'on':
+		print('try to start')
+		task = [ioloop.create_task(serviceControl.startService2())]			
+	elif serviceSwitch == 'off':
+		print('try to stop')
+		task = [ioloop.create_task(serviceControl.stopService2())]
+	elif serviceSwitch == 'restart':
+		print('try to restart')
+		task = [ioloop.create_task(serviceControl.restartService2())]
+	
+	wait_tasks = asyncio.wait(task)
+	#ioloop.ensure_future(task)
+	#ioloop.run_until_complete(wait_tasks)
+	#ioloop.close()
+		
+	#print (serviceControl.getStatus())
+	
+	return web.HTTPFound('/')
+	
 	
 	
 async def switchPost(r):
