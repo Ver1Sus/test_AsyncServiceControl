@@ -37,3 +37,7 @@ h1{
 .btnRe{
 	background-color:darkgoldenrod;
 }
+
+.btnDisabled{
+	background-color: gray;
+}

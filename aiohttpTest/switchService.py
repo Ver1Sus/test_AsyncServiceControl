@@ -24,7 +24,8 @@ class ServiceControl():
 		return res
 		
 	async def startService2(self):
-		await self.runShell("start")
+		data = await self.runShell("start")
+		return(data)
 		# p = await asyncio.create_subprocess_shell("sudo service {} start".format(self.serviceName), stdout=asyncio.subprocess.PIPE)
 		
 	async def stopService2(self):
@@ -34,5 +35,22 @@ class ServiceControl():
 		await self.runShell("restart")
 		
 	async def runShell(self, command):
-		await asyncio.create_subprocess_shell("sudo service {} {}".format(self.serviceName, command), stdout=asyncio.subprocess.PIPE)
+		p = await asyncio.create_subprocess_shell("sudo service {0} {1}; sudo service {0} status;".format(self.serviceName, command), stdout=asyncio.subprocess.PIPE)
+		for i in range(10):
+			data = await p.stdout.readline()
+			if 'Active:' in str(data):
+				data = re.findall(r'Active:.(\w*)', str(data))
+				break
+		print(data)
+		return(data)
 		
+	async def getStatus2(self):
+		p = await asyncio.create_subprocess_shell("sudo service {} status".format(self.serviceName), stdout=asyncio.subprocess.PIPE)
+
+		for i in range(10):
+			data = await p.stdout.readline()
+			if 'Active:' in str(data):
+				data = re.findall(r'Active:.(\w*)', str(data))
+				break
+		
+		return(data)

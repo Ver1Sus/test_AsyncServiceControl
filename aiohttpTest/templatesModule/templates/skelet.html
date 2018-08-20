@@ -4,6 +4,7 @@
     {% block head %}
         <link rel="stylesheet" type="text/css"
               href="{{ url('static', filename='style.css') }}" />
+		
         <title>{{title}}</title>
     {% endblock %}
   </head>
@@ -13,5 +14,8 @@
       {% block content %}
       {% endblock %}
     </div>
+	
+		<script src="{{ url('static', filename='jquery3.3.js')}}"></script>
+		<script src="{{ url('static', filename='script.js')}}"></script>
   </body>
 </html>
