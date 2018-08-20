@@ -3,7 +3,7 @@ import asyncio, aiohttp
 import aiohttp_jinja2
 from switchService import ServiceControl
 from syslog import syslog as printToSyslog
-import testDb 
+import asyncDb 
 from datetime import datetime
 
 
@@ -16,7 +16,7 @@ async def index(request):
 	printAndLog("Connect to ./index.html")
 	
 	#---connect to PostgreS and get status of checkBox
-	postgreBase = testDb.postgreDB()
+	postgreBase = asyncDb.postgreDB()
 	res = asyncio.gather(postgreBase.getStatus())
 	
 	checked = ''
@@ -37,7 +37,7 @@ async def websocket_handler(request):
 	ws = web.WebSocketResponse()
 	await ws.prepare(request)
 	
-	postgreBase = testDb.postgreDB()
+	postgreBase = asyncDb.postgreDB()
 	
 	async for msg in ws:				
 		if msg.data == 'true':			
