@@ -9,10 +9,7 @@
 	
 	<input type="checkbox" id="checkActive" value="On" {{ checked }}>Activate service</input>
 	
-	<!-- <form id='mainForm' action="{{ url('switch') }}" method="POST" onSubmit="return false;"> -->
 	<form id='mainForm' action="{{ url('switch') }}" method="POST"  >
-		<!-- <input type="submit"  name="serviceSwitch" value="OFF" class="btnOff btn"/> -->
-		<!-- <input type="submit" name="serviceSwitch" value="ON"  class="btnOn btn"/> -->
 		
 		<button type="submit" disabled name="serviceSwitch" value="off" class="btnOff btn btnDisabled">OFF</button>
 		<button type="submit" disabled name="serviceSwitch" value="on"  class="btnOn btn btnDisabled">ON</button>

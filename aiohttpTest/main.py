@@ -8,8 +8,9 @@ app = web.Application()
 
 aiohttp_jinja2.setup(app, loader=jinja2.PackageLoader('templatesModule', 'templates'))
 
+printAndLog("Start App")
+
 setup_routes(app)
-printAndLog("Start")
 web.run_app(app)
 
 
